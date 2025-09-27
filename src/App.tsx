@@ -9,6 +9,10 @@ import DecorationDetail from "@/pages/DecorationDetail";
 import Wishlist from "@/pages/Wishlist";
 import Dashboard from "@/pages/Dashboard";
 import NotFound from "./pages/NotFound";
+import { AdminLayout } from "@/components/admin/AdminLayout";
+import AdminDashboard from "@/pages/admin/AdminDashboard";
+import AdminDecorations from "@/pages/admin/AdminDecorations";
+import AdminBookings from "@/pages/admin/AdminBookings";
 
 const queryClient = new QueryClient();
 
@@ -19,17 +23,42 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <div className="min-h-screen bg-background">
-          <Header />
-          <main>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/decoration/:id" element={<DecorationDetail />} />
-              <Route path="/wishlist" element={<Wishlist />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </main>
+          <Routes>
+            {/* Public Routes */}
+            <Route path="/" element={
+              <div>
+                <Header />
+                <main><Home /></main>
+              </div>
+            } />
+            <Route path="/decoration/:id" element={
+              <div>
+                <Header />
+                <main><DecorationDetail /></main>
+              </div>
+            } />
+            <Route path="/wishlist" element={
+              <div>
+                <Header />
+                <main><Wishlist /></main>
+              </div>
+            } />
+            <Route path="/dashboard" element={
+              <div>
+                <Header />
+                <main><Dashboard /></main>
+              </div>
+            } />
+            
+            {/* Admin Routes */}
+            <Route path="/admin" element={<AdminLayout />}>
+              <Route index element={<AdminDashboard />} />
+              <Route path="decorations" element={<AdminDecorations />} />
+              <Route path="bookings" element={<AdminBookings />} />
+            </Route>
+            
+            <Route path="*" element={<NotFound />} />
+          </Routes>
         </div>
       </BrowserRouter>
     </TooltipProvider>

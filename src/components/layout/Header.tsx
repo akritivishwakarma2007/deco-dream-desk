@@ -15,7 +15,7 @@ const Header = () => {
   // Mock user state - will be replaced with actual auth
   const user = {
     name: "Demo User",
-    role: "user" // or "admin"
+    role: "admin" // or "user" - set to admin for demo
   };
 
   const handleLogout = () => {
