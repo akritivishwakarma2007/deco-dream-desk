@@ -1,0 +1,123 @@
+/* Button Styles */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.btn:disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+/* Variants */
+.btn-default {
+  background-color: var(--color-primary);
+  color: var(--color-primary-foreground);
+}
+
+.btn-default:hover {
+  background-color: var(--color-primary-glow);
+}
+
+.btn-outline {
+  border: 1px solid var(--color-border);
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+}
+
+.btn-outline:hover {
+  background-color: var(--color-accent);
+  color: var(--color-accent-foreground);
+}
+
+.btn-secondary {
+  background-color: var(--color-secondary);
+  color: var(--color-secondary-foreground);
+}
+
+.btn-secondary:hover {
+  background-color: hsl(35, 32%, 85%);
+}
+
+.btn-ghost {
+  background-color: transparent;
+  color: var(--color-foreground);
+}
+
+.btn-ghost:hover {
+  background-color: var(--color-accent);
+  color: var(--color-accent-foreground);
+}
+
+.btn-hero {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-glow));
+  color: var(--color-primary-foreground);
+  transition: all 0.3s ease;
+}
+
+.btn-hero:hover {
+  box-shadow: var(--shadow-glow);
+}
+
+.btn-premium {
+  background: linear-gradient(135deg, var(--color-secondary), hsl(45, 46%, 85%));
+  color: var(--color-foreground);
+  transition: all 0.3s ease;
+}
+
+.btn-premium:hover {
+  box-shadow: var(--shadow-elegant);
+}
+
+/* Sizes */
+.btn-sm {
+  height: 2.25rem;
+  padding: 0 0.75rem;
+  border-radius: var(--radius-sm);
+}
+
+.btn-default-size,
+.btn-md {
+  height: 2.5rem;
+  padding: 0.5rem 1rem;
+}
+
+.btn-lg {
+  height: 2.75rem;
+  padding: 0.5rem 2rem;
+  border-radius: var(--radius-sm);
+}
+
+.btn-icon {
+  height: 2.5rem;
+  width: 2.5rem;
+  padding: 0;
+}
+
+.btn svg {
+  width: 1rem;
+  height: 1rem;
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+.btn-icon svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}

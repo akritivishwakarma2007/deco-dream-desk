@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/Button";
+import { Badge } from "@/components/Badge";
 import { Heart, Eye } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import "../Card.css";
+import "../styles.css";
 
 interface Decoration {
   id: string;
@@ -61,14 +62,14 @@ const DecorationCard = ({ decoration }: DecorationCardProps) => {
   };
 
   return (
-    <Card className="group overflow-hidden transition-all duration-300 hover:shadow-card hover:-translate-y-1">
-      <div className="relative aspect-[4/3] overflow-hidden">
+    <div className="card">
+      <div className="card-image-container">
         <img
           src={decoration.images[0] || "/placeholder.svg"}
           alt={decoration.title}
-          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+          className="card-image"
         />
-        <div className="absolute top-3 left-3">
+        <div className="card-badge">
           <Badge variant={getStatusBadgeVariant(decoration.status)}>
             {getStatusText(decoration.status)}
           </Badge>
@@ -76,36 +77,38 @@ const DecorationCard = ({ decoration }: DecorationCardProps) => {
         <Button
           variant="ghost"
           size="icon"
-          className="absolute top-3 right-3 bg-white/80 hover:bg-white text-primary"
+          className="card-wishlist-btn"
           onClick={handleWishlistToggle}
         >
-          <Heart className={`h-4 w-4 ${isWishlisted ? "fill-current" : ""}`} />
+          <Heart style={{ 
+            width: '1rem', 
+            height: '1rem',
+            fill: isWishlisted ? 'currentColor' : 'none'
+          }} />
         </Button>
       </div>
       
-      <CardContent className="p-4">
-        <div className="mb-2">
-          <span className="text-sm text-muted-foreground capitalize">
-            {decoration.category}
-          </span>
+      <div className="card-content">
+        <div className="card-category">
+          {decoration.category}
         </div>
-        <h3 className="font-semibold text-lg mb-2 line-clamp-1">
+        <h3 className="card-title">
           {decoration.title}
         </h3>
-        <p className="text-sm text-muted-foreground line-clamp-2">
+        <p className="card-description">
           {decoration.description}
         </p>
-      </CardContent>
+      </div>
       
-      <CardFooter className="p-4 pt-0">
-        <Link to={`/decoration/${decoration.id}`} className="w-full">
+      <div className="card-footer">
+        <Link to={`/decoration/${decoration.id}`} style={{ width: '100%' }}>
           <Button className="w-full" variant="outline">
-            <Eye className="mr-2 h-4 w-4" />
+            <Eye style={{ marginRight: '0.5rem', width: '1rem', height: '1rem' }} />
             View Details
           </Button>
         </Link>
-      </CardFooter>
-    </Card>
+      </div>
+    </div>
   );
 };
 

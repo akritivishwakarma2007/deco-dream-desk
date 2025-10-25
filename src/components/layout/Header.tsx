@@ -1,16 +1,14 @@
 import { Link, useLocation } from "react-router-dom";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/Button";
 import { Heart, User, Settings, LogOut } from "lucide-react";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { useState } from "react";
+import "./Header.css";
+import "../styles.css";
 
 const Header = () => {
   const location = useLocation();
   const isActive = (path: string) => location.pathname === path;
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   // Mock user state - will be replaced with actual auth
   const user = {
@@ -24,47 +22,39 @@ const Header = () => {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-16 items-center justify-between">
-        <div className="flex items-center space-x-8">
-          <Link to="/" className="flex items-center space-x-2">
-            <div className="h-8 w-8 rounded-full bg-gradient-primary"></div>
-            <span className="text-xl font-bold bg-gradient-primary bg-clip-text text-transparent">
+    <header className="header">
+      <div className="header-container">
+        <div className="header-left">
+          <Link to="/" className="header-logo">
+            <div className="header-logo-icon"></div>
+            <span className="header-logo-text">
               DecorDream
             </span>
           </Link>
           
-          <nav className="hidden md:flex items-center space-x-6">
+          <nav className="header-nav">
             <Link 
               to="/" 
-              className={`text-sm font-medium transition-colors hover:text-primary ${
-                isActive("/") ? "text-primary" : "text-muted-foreground"
-              }`}
+              className={`header-nav-link ${isActive("/") ? "active" : ""}`.trim()}
             >
               Browse Decorations
             </Link>
             <Link 
               to="/wishlist" 
-              className={`text-sm font-medium transition-colors hover:text-primary ${
-                isActive("/wishlist") ? "text-primary" : "text-muted-foreground"
-              }`}
+              className={`header-nav-link ${isActive("/wishlist") ? "active" : ""}`.trim()}
             >
               Wishlist
             </Link>
             <Link 
               to="/dashboard" 
-              className={`text-sm font-medium transition-colors hover:text-primary ${
-                isActive("/dashboard") ? "text-primary" : "text-muted-foreground"
-              }`}
+              className={`header-nav-link ${isActive("/dashboard") ? "active" : ""}`.trim()}
             >
               Dashboard
             </Link>
             {user.role === "admin" && (
               <Link 
                 to="/admin" 
-                className={`text-sm font-medium transition-colors hover:text-primary ${
-                  isActive("/admin") ? "text-primary" : "text-muted-foreground"
-                }`}
+                className={`header-nav-link ${isActive("/admin") ? "active" : ""}`.trim()}
               >
                 Admin Panel
               </Link>
@@ -72,40 +62,39 @@ const Header = () => {
           </nav>
         </div>
 
-        <div className="flex items-center space-x-4">
+        <div className="header-actions">
           <Link to="/wishlist">
             <Button variant="ghost" size="icon">
-              <Heart className="h-5 w-5" />
+              <Heart style={{ width: '1.25rem', height: '1.25rem' }} />
             </Button>
           </Link>
           
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon">
-                <User className="h-5 w-5" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem asChild>
-                <Link to="/dashboard" className="flex items-center">
-                  <User className="mr-2 h-4 w-4" />
-                  Profile
-                </Link>
-              </DropdownMenuItem>
+          <div className="dropdown">
+            <Button 
+              variant="ghost" 
+              size="icon"
+              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+              className="dropdown-trigger"
+            >
+              <User style={{ width: '1.25rem', height: '1.25rem' }} />
+            </Button>
+            <div className={`dropdown-menu ${isDropdownOpen ? 'open' : ''}`.trim()}>
+              <Link to="/dashboard" className="dropdown-item">
+                <User style={{ marginRight: '0.5rem', width: '1rem', height: '1rem' }} />
+                Profile
+              </Link>
               {user.role === "admin" && (
-                <DropdownMenuItem asChild>
-                  <Link to="/admin" className="flex items-center">
-                    <Settings className="mr-2 h-4 w-4" />
-                    Admin Panel
-                  </Link>
-                </DropdownMenuItem>
+                <Link to="/admin" className="dropdown-item">
+                  <Settings style={{ marginRight: '0.5rem', width: '1rem', height: '1rem' }} />
+                  Admin Panel
+                </Link>
               )}
-              <DropdownMenuItem onClick={handleLogout}>
-                <LogOut className="mr-2 h-4 w-4" />
+              <button onClick={handleLogout} className="dropdown-item">
+                <LogOut style={{ marginRight: '0.5rem', width: '1rem', height: '1rem' }} />
                 Logout
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </header>

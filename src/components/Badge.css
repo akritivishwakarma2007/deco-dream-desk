@@ -1,0 +1,82 @@
+/* Badge Styles */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 9999px;
+  border: 1px solid transparent;
+  padding: 0.125rem 0.625rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.badge:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Variants */
+.badge-default {
+  background-color: var(--color-primary);
+  color: var(--color-primary-foreground);
+}
+
+.badge-default:hover {
+  background-color: var(--color-primary-glow);
+}
+
+.badge-secondary {
+  background-color: var(--color-secondary);
+  color: var(--color-secondary-foreground);
+}
+
+.badge-secondary:hover {
+  background-color: hsl(35, 32%, 85%);
+}
+
+.badge-destructive {
+  background-color: var(--color-destructive);
+  color: white;
+}
+
+.badge-destructive:hover {
+  background-color: hsl(0, 84%, 55%);
+}
+
+.badge-outline {
+  border-color: var(--color-border);
+  color: var(--color-foreground);
+  background-color: transparent;
+}
+
+.badge-success,
+.badge-available {
+  background-color: var(--color-success);
+  color: white;
+}
+
+.badge-success:hover,
+.badge-available:hover {
+  background-color: hsl(142, 71%, 40%);
+}
+
+.badge-warning,
+.badge-reserved {
+  background-color: var(--color-warning);
+  color: white;
+}
+
+.badge-warning:hover,
+.badge-reserved:hover {
+  background-color: hsl(38, 92%, 45%);
+}
+
+.badge-full {
+  background-color: var(--color-destructive);
+  color: white;
+}
+
+.badge-full:hover {
+  background-color: hsl(0, 84%, 55%);
+}

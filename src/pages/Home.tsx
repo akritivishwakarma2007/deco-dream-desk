@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Button } from "@/components/Button";
+import { Input } from "@/components/Input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/Select";
 import DecorationCard from "@/components/decorations/DecorationCard";
 import { Search, Filter } from "lucide-react";
 import heroImage from "@/assets/hero-decoration.jpg";
+import "../styles.css";
+import "../components/Home.css";
 
 // Mock data - will be replaced with Supabase data
 const mockDecorations = [
@@ -76,22 +78,22 @@ const Home = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative h-[60vh] flex items-center justify-center overflow-hidden">
+      <section className="hero-section">
         <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          className="hero-background"
           style={{ backgroundImage: `url(${heroImage})` }}
         >
-          <div className="absolute inset-0 bg-black/40"></div>
+          <div className="hero-overlay"></div>
         </div>
         
-        <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6 animate-fade-in">
+        <div className="hero-content">
+          <h1 className="hero-title">
             Transform Your Special Moments
           </h1>
-          <p className="text-xl md:text-2xl mb-8 text-white/90 animate-slide-up">
+          <p className="hero-subtitle">
             Discover stunning decorations for weddings, parties, and corporate events
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up">
+          <div className="hero-buttons">
             <Button size="lg" variant="hero" asChild>
               <Link to="#browse">Browse Decorations</Link>
             </Button>
@@ -103,32 +105,31 @@ const Home = () => {
       </section>
 
       {/* Browse Section */}
-      <section id="browse" className="py-16 px-4">
-        <div className="container mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+      <section id="browse" className="browse-section">
+        <div className="container">
+          <div className="browse-header">
+            <h2 className="browse-title">
               Browse Our Decorations
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <p className="browse-description">
               Find the perfect decorations for your event. Filter by category and availability to discover exactly what you need.
             </p>
           </div>
 
           {/* Filters */}
-          <div className="flex flex-col md:flex-row gap-4 mb-8 max-w-4xl mx-auto">
-            <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+          <div className="filters-container">
+            <div className="input-icon" style={{ flex: 1 }}>
+              <Search className="icon" />
               <Input
                 placeholder="Search decorations..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10"
               />
             </div>
             
             <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-              <SelectTrigger className="w-full md:w-48">
-                <Filter className="h-4 w-4" />
+              <SelectTrigger>
+                <Filter style={{ width: '1rem', height: '1rem', marginRight: '0.5rem' }} />
                 <SelectValue placeholder="Category" />
               </SelectTrigger>
               <SelectContent>
@@ -143,7 +144,7 @@ const Home = () => {
             </Select>
 
             <Select value={selectedStatus} onValueChange={setSelectedStatus}>
-              <SelectTrigger className="w-full md:w-48">
+              <SelectTrigger>
                 <SelectValue placeholder="Status" />
               </SelectTrigger>
               <SelectContent>
@@ -156,15 +157,15 @@ const Home = () => {
           </div>
 
           {/* Decorations Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="decorations-grid">
             {filteredDecorations.map((decoration) => (
               <DecorationCard key={decoration.id} decoration={decoration} />
             ))}
           </div>
 
           {filteredDecorations.length === 0 && (
-            <div className="text-center py-12">
-              <p className="text-lg text-muted-foreground">
+            <div className="no-results">
+              <p className="no-results-text">
                 No decorations found matching your criteria.
               </p>
             </div>
